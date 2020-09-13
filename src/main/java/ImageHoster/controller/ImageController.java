@@ -27,8 +27,7 @@ public class ImageController {
     @Autowired
     private TagService tagService;
 
-    //@Autowired(required = true)
-    @Autowired
+    @Autowired(required = true)
     private CommentService commentService;
 
     //This method displays all the images in the user home page after successful login
@@ -40,7 +39,7 @@ public class ImageController {
     }
 
     //This method is called when the details of the specific image with corresponding title are to be displayed
-    //The logic is to get the image from the databse with corresponding title. After getting the image from the database the details are shown
+    //The logic is to get the image from the database with corresponding title. After getting the image from the database the details are shown
     //First receive the dynamic parameter in the incoming request URL in a string variable 'title' and also the Model type object
     //Call the getImageByTitle() method in the business logic to fetch all the details of that image
     //Add the image in the Model type object with 'image' as the key
@@ -99,7 +98,7 @@ public class ImageController {
     //This string is then displayed by 'edit.html' file as previous tags of an image
     @RequestMapping(value = "/editImage")
     public String editImage(@RequestParam("imageId") Integer imageId, Model model, HttpSession session, final RedirectAttributes redirectAttributes) {
-        Image image = imageService.getImage(imageId);
+        Image image = imageService.getImageById(imageId);
         Boolean isLoggedUSer = userSameAsLoggedInUser(image.getUser(), session);
 
 
@@ -136,7 +135,7 @@ public class ImageController {
     @RequestMapping(value = "/editImage", method = RequestMethod.PUT)
     public String editImageSubmit(@RequestParam("file") MultipartFile file, @RequestParam("imageId") Integer imageId, @RequestParam("tags") String tags, Image updatedImage, HttpSession session) throws IOException {
 
-        Image image = imageService.getImage(imageId);
+        Image image = imageService.getImageById(imageId);
         String updatedImageData = convertUploadedFileToBase64(file);
         List<Tag> imageTags = findOrCreateTags(tags);
 
