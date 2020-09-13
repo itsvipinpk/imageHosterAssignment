@@ -3,10 +3,11 @@ package ImageHoster.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
 import ImageHoster.model.Comment;
 import ImageHoster.repository.CommentRepository;
+
 
 @Service
 public class CommentService {
