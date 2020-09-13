@@ -105,18 +105,23 @@ public class ImageController {
         /**
          * Error message if user tries to edit/delete another user image.
          * */
-        String error = "Only the owner of the image can edit the image";
+        //String error = "Only the owner of the image can edit the image";
 
-        String tags = convertTagsToString(image.getTags());
-        model.addAttribute("image", image);
-        model.addAttribute("tags", tags);
+        /*String tags = convertTagsToString(image.getTags());
+        *//*model.addAttribute("image", image);
+        model.addAttribute("tags", tags);*/
 
         if (!isLoggedUSer) {
-            redirectAttributes.addAttribute("editError", error);
+            String error = "Only the owner of the image can edit the image";
+            model.addAttribute("image", image);
+            model.addAttribute("tags", image.getTags());
             model.addAttribute("editError", error);
-            redirectAttributes.addFlashAttribute("editError", error);
-            return "redirect:/images/" + image.getId() + "/" + image.getTitle();
+            return "images/image";
+
         } else {
+            String tags = convertTagsToString(image.getTags());
+            model.addAttribute("image", image);
+            model.addAttribute("tags", tags);
             return "images/edit";
         }
     }
@@ -165,16 +170,17 @@ public class ImageController {
         Image image = imageService.getImageById(imageId);
         Boolean isLoggedUSer = userSameAsLoggedInUser(image.getUser(), session);
 
-        String tags = convertTagsToString(image.getTags());
-        String error = "Only the owner of the image can delete the image";
-        model.addAttribute("image", image);
-        model.addAttribute("tags", tags);
+        //String tags = convertTagsToString(image.getTags());
+        //String error = "Only the owner of the image can delete the image";
+        //model.addAttribute("image", image);
+        //model.addAttribute("tags", tags);
 
         if (!isLoggedUSer) {
-            redirectAttributes.addAttribute("deleteError", error);
+            String error = "Only the owner of the image can delete the image";
+            model.addAttribute("image", image);
+            model.addAttribute("tags", image.getTags());
             model.addAttribute("deleteError", error);
-            redirectAttributes.addFlashAttribute("deleteError", error);
-            return "redirect:/images/" + image.getId() + "/" + image.getTitle();
+            return "images/image";
         } else {
             imageService.deleteImage(imageId);
             return "redirect:/images";

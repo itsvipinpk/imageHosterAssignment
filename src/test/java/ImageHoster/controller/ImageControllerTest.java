@@ -7,6 +7,7 @@ import ImageHoster.model.UserProfile;
 import ImageHoster.service.CommentService;
 import ImageHoster.service.ImageService;
 import ImageHoster.service.TagService;
+import ImageHoster.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -42,6 +43,7 @@ public class ImageControllerTest {
 
     @MockBean
     private CommentService commentService;
+
 
     //This test checks the controller logic to get all the images after the user is logged in the application and checks whether the logic returns the html file 'images.html'
     @Test
@@ -308,8 +310,7 @@ public class ImageControllerTest {
 
         this.mockMvc.perform(delete("/deleteImage")
                 .param("imageId", "1")
-                .session(session))
-                .andExpect(model().attribute("deleteError", "Only the owner of the image can delete the image"));
+                .session(session)).andExpect(model().attribute("deleteError", "Only the owner of the image can delete the image"));
     }
 }
 

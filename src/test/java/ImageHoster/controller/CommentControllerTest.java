@@ -6,6 +6,7 @@ import ImageHoster.model.User;
 import ImageHoster.model.UserProfile;
 import ImageHoster.service.CommentService;
 import ImageHoster.service.ImageService;
+import ImageHoster.service.TagService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -32,6 +33,7 @@ public class CommentControllerTest {
 
     @MockBean
     private ImageService imageService;
+
 
     //This test checks controller logic for comment and checks whether the controller logic redirects to the request handling method with request mapping of type "/images/{imageId}/{title}"
     @Test
