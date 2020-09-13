@@ -8,6 +8,10 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+/**
+ * JPA Config class for setting the DB connection properties
+ **/
+
 @Configuration
 public class JpaConfig {
 

@@ -16,7 +16,9 @@ import ImageHoster.model.Comment;
 @Repository
 public class CommentRepository {
 	
-	 //Get an instance of EntityManagerFactory from persistence unit with name as 'imageHoster'
+/**
+	 Get an instance of EntityManagerFactory from persistence unit with name as 'imageHoster'
+*/
     @PersistenceUnit(unitName = "imageHoster")
     private EntityManagerFactory emf;
     
@@ -35,9 +37,9 @@ public class CommentRepository {
     }
     
     
-    //The method creates an instance of EntityManager
-    //Executes JPQL typedQuery to fetch all the comments from the database based on Image id
-    //Returns the list of all the comments fetched from the database
+  /**  The method creates an instance of EntityManager
+    Executes JPQL typedQuery to fetch all the comments from the database based on Image id
+    Returns the list of all the comments fetched from the database*/
     public List<Comment> getAllComments(Integer imageId, String imageTitle) {
         EntityManager em = emf.createEntityManager();
         try {
