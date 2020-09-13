@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ImageHoster.model.Comment;
 import ImageHoster.model.Image;
@@ -31,18 +30,19 @@ public class CommentController {
 	@Autowired
 	private ImageService imageService;
 
-	// This controller method is called when the request pattern is of type
-	// 'addComment' and also the incoming request is of POST Type
-	// The method calls the createComment() method in the business logic passing the
-	// comments, image id, image title to be add comment
-	// Looks for a controller method with mapping of type
-	// '/image/{imageId}/{imageTitle}'
+/**
+ * 	This controller method is called when the request pattern is of type 'addComment' and also the incoming request is of POST Type
+ * 	The method calls the createComment() method in the business logic passing the comments, image id, image title to be add comment
+ * 	Looks for a controller method with mapping of type '/image/{imageId}/{imageTitle}'
+ * */
 	@RequestMapping(value = "/image/{imageId}/{imageTitle}/comments", method = RequestMethod.POST)
 	public String addComment(@RequestParam("comment") String commentText, @PathVariable("imageId") Integer imageId,
 			@PathVariable("imageTitle") String imageTitle, Model model, HttpSession session){
+
 		Image image = imageService.getImageById(imageId);
 		String tags = convertTagsToString(image.getTags());
 		User loggedInuser = (User) session.getAttribute("loggeduser");
+
 		Comment comment = new Comment();
 		comment.setImage(image);
 		comment.setUser(loggedInuser);
@@ -50,17 +50,14 @@ public class CommentController {
 		comment.setCreatedDate(new Date());
 		commentService.createComment(comment);
 
-		// Boolean isLoggedUSer = userSameAsLoggedInUser(image.getUser(), session);
 		model.addAttribute("image", image);
 		model.addAttribute("tags", tags);
 
 		return "redirect:/images/" + image.getId() + "/" + image.getTitle();
 	}
 
-	// The method receives the list of all tags
-	// Converts the list of all tags to a single string containing all the tags
-	// separated by a comma
-	// Returns the string
+	/**The method receives the list of all tags
+	Converts the list of all tags to a single string containing all the tags separated by a comma and Returns the string*/
 	private String convertTagsToString(List<Tag> tags) {
 		StringBuilder tagString = new StringBuilder();
         if( tags.size() > 0) {

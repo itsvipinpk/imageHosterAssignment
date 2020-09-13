@@ -25,10 +25,9 @@ public class UserController {
     @Autowired
     private ImageService imageService;
 
-    //This controller method is called when the request pattern is of type 'users/registration'
-    //This method declares User type and UserProfile type object
-    //Sets the user profile with UserProfile type object
-    //Adds User type object to a model and returns 'users/registration.html' file
+   /**This controller method is called when the request pattern is of type 'users/registration'
+    This method declares User type and UserProfile type object, Sets the user profile with UserProfile type object
+    Adds User type object to a model and returns 'users/registration.html' file*/
     @RequestMapping("users/registration")
     public String registration(Model model) {
         User user = new User();
@@ -38,10 +37,12 @@ public class UserController {
         return "users/registration";
     }
 
-    //This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
-    //This method calls the business logic and after the user record is persisted in the database, directs to login page
+
 
     /**
+     * This controller method is called when the request pattern is of type 'users/registration' and also the incoming request is of POST type
+     * This method calls the business logic and after the user record is persisted in the database, directs to login page
+     *
      * Feature added: this method checks if the entered password at the time of registration contains atleast..
      *  1 alphabet (a-z or A-Z), 1 number (0-9) and 1 special character (any character other than a-z, A-Z and 0-9).
      * */
@@ -67,16 +68,18 @@ public class UserController {
         }
     }
 
-    //This controller method is called when the request pattern is of type 'users/login'
+    /**This controller method is called when the request pattern is of type 'users/login'*/
     @RequestMapping("users/login")
     public String login() {
         return "users/login";
     }
 
-    //This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
-    //The return type of the business logic is changed to User type instead of boolean type. The login() method in the business logic checks whether the user with entered username and password exists in the database and returns the User type object if user with entered username and password exists in the database, else returns null
-    //If user with entered username and password exists in the database, add the logged in user in the Http Session and direct to user homepage displaying all the images in the application
-    //If user with entered username and password does not exist in the database, redirect to the same login page
+    /**  This controller method is called when the request pattern is of type 'users/login' and also the incoming request is of POST type
+    The return type of the business logic is changed to User type instead of boolean type. The login() method in the business logic checks
+    whether the user with entered username and password exists in the database and returns the User type object if user with entered username
+    and password exists in the database, else returns null. If user with entered username and password exists in the database, add the logged
+    in user in the Http Session and direct to user homepage displaying all the images in the application
+    If user with entered username and password does not exist in the database, redirect to the same login page*/
     @RequestMapping(value = "users/login", method = RequestMethod.POST)
     public String loginUser(User user, HttpSession session) {
         User existingUser = userService.login(user);
@@ -88,11 +91,10 @@ public class UserController {
         }
     }
 
-    //This controller method is called when the request pattern is of type 'users/logout' and also the incoming request is of POST type
-    //The method receives the Http Session and the Model type object
-    //session is invalidated
-    //All the images are fetched from the database and added to the model with 'images' as the key
-    //'index.html' file is returned showing the landing page of the application and displaying all the images in the application
+    /**This controller method is called when the request pattern is of type 'users/logout' and also the incoming request is of POST type
+    The method receives the Http Session and the Model type object,session is invalidated
+    All the images are fetched from the database and added to the model with 'images' as the key
+    'index.html' file is returned showing the landing page of the application and displaying all the images in the application*/
     @RequestMapping(value = "users/logout", method = RequestMethod.POST)
     public String logout(Model model, HttpSession session) {
         session.invalidate();
